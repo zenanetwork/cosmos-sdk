@@ -1,0 +1,65 @@
+syntax = "proto3";
+package cosmos.checkpoint.v1;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/checkpoint/v1/checkpoint.proto";
+
+option go_package = "github.com/cosmos/cosmos-sdk/x/checkpoint/types";
+
+// Query는 checkpoint 모듈의 쿼리 서비스를 정의합니다.
+service Query {
+  // Checkpoint는 주어진 번호에 해당하는 체크포인트 정보를 반환합니다.
+  rpc Checkpoint(QueryCheckpointRequest) returns (QueryCheckpointResponse) {
+    option (google.api.http).get = "/cosmos/checkpoint/v1/checkpoint/{number}";
+  }
+
+  // CheckpointCount는 총 체크포인트 수를 반환합니다.
+  rpc CheckpointCount(QueryCheckpointCountRequest) returns (QueryCheckpointCountResponse) {
+    option (google.api.http).get = "/cosmos/checkpoint/v1/checkpoint_count";
+  }
+
+  // LastCheckpoint는 마지막 체크포인트 정보를 반환합니다.
+  rpc LastCheckpoint(QueryLastCheckpointRequest) returns (QueryLastCheckpointResponse) {
+    option (google.api.http).get = "/cosmos/checkpoint/v1/last_checkpoint";
+  }
+
+  // Params는 모듈 파라미터를 반환합니다.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/cosmos/checkpoint/v1/params";
+  }
+}
+
+// QueryCheckpointRequest는 Checkpoint 쿼리 요청을 정의합니다.
+message QueryCheckpointRequest {
+  int64 number = 1;
+}
+
+// QueryCheckpointResponse는 Checkpoint 쿼리 응답을 정의합니다.
+message QueryCheckpointResponse {
+  Checkpoint checkpoint = 1 [(gogoproto.nullable) = false];
+}
+
+// QueryCheckpointCountRequest는 CheckpointCount 쿼리 요청을 정의합니다.
+message QueryCheckpointCountRequest {}
+
+// QueryCheckpointCountResponse는 CheckpointCount 쿼리 응답을 정의합니다.
+message QueryCheckpointCountResponse {
+  int64 count = 1;
+}
+
+// QueryLastCheckpointRequest는 LastCheckpoint 쿼리 요청을 정의합니다.
+message QueryLastCheckpointRequest {}
+
+// QueryLastCheckpointResponse는 LastCheckpoint 쿼리 응답을 정의합니다.
+message QueryLastCheckpointResponse {
+  Checkpoint checkpoint = 1 [(gogoproto.nullable) = false];
+}
+
+// QueryParamsRequest는 Params 쿼리 요청을 정의합니다.
+message QueryParamsRequest {}
+
+// QueryParamsResponse는 Params 쿼리 응답을 정의합니다.
+message QueryParamsResponse {
+  Params params = 1 [(gogoproto.nullable) = false];
+} 

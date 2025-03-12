@@ -1,0 +1,65 @@
+syntax = "proto3";
+package cosmos.span.v1;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/span/v1/span.proto";
+
+option go_package = "github.com/cosmos/cosmos-sdk/x/span/types";
+
+// Query는 span 모듈의 쿼리 서비스를 정의합니다.
+service Query {
+  // Span은 주어진 ID에 해당하는 스팬 정보를 반환합니다.
+  rpc Span(QuerySpanRequest) returns (QuerySpanResponse) {
+    option (google.api.http).get = "/cosmos/span/v1/span/{span_id}";
+  }
+
+  // SpanCount는 총 스팬 수를 반환합니다.
+  rpc SpanCount(QuerySpanCountRequest) returns (QuerySpanCountResponse) {
+    option (google.api.http).get = "/cosmos/span/v1/span_count";
+  }
+
+  // LastSpan은 마지막 스팬 정보를 반환합니다.
+  rpc LastSpan(QueryLastSpanRequest) returns (QueryLastSpanResponse) {
+    option (google.api.http).get = "/cosmos/span/v1/last_span";
+  }
+
+  // Params는 모듈 파라미터를 반환합니다.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/cosmos/span/v1/params";
+  }
+}
+
+// QuerySpanRequest는 Span 쿼리 요청을 정의합니다.
+message QuerySpanRequest {
+  uint64 span_id = 1;
+}
+
+// QuerySpanResponse는 Span 쿼리 응답을 정의합니다.
+message QuerySpanResponse {
+  Span span = 1 [(gogoproto.nullable) = false];
+}
+
+// QuerySpanCountRequest는 SpanCount 쿼리 요청을 정의합니다.
+message QuerySpanCountRequest {}
+
+// QuerySpanCountResponse는 SpanCount 쿼리 응답을 정의합니다.
+message QuerySpanCountResponse {
+  uint64 count = 1;
+}
+
+// QueryLastSpanRequest는 LastSpan 쿼리 요청을 정의합니다.
+message QueryLastSpanRequest {}
+
+// QueryLastSpanResponse는 LastSpan 쿼리 응답을 정의합니다.
+message QueryLastSpanResponse {
+  Span span = 1 [(gogoproto.nullable) = false];
+}
+
+// QueryParamsRequest는 Params 쿼리 요청을 정의합니다.
+message QueryParamsRequest {}
+
+// QueryParamsResponse는 Params 쿼리 응답을 정의합니다.
+message QueryParamsResponse {
+  Params params = 1 [(gogoproto.nullable) = false];
+} 

@@ -1,0 +1,41 @@
+syntax = "proto3";
+package cosmos.span.v1;
+
+import "gogoproto/gogo.proto";
+import "cosmos/span/v1/span.proto";
+
+option go_package = "github.com/cosmos/cosmos-sdk/x/span/types";
+
+// Msg는 span 모듈의 메시지 서비스를 정의합니다.
+service Msg {
+  // CreateSpan은 새로운 스팬을 생성합니다.
+  rpc CreateSpan(MsgCreateSpan) returns (MsgCreateSpanResponse);
+
+  // UpdateParams는 모듈 파라미터를 업데이트합니다.
+  rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
+}
+
+// MsgCreateSpan은 새로운 스팬 생성 메시지를 정의합니다.
+message MsgCreateSpan {
+  string creator = 1;
+  uint64 id = 2;
+  uint64 start_block = 3;
+  uint64 end_block = 4;
+  repeated Validator validator_set = 5 [(gogoproto.nullable) = false];
+  repeated string selected_producers = 6;
+  string chain_id = 7;
+}
+
+// MsgCreateSpanResponse는 스팬 생성 응답을 정의합니다.
+message MsgCreateSpanResponse {
+  uint64 id = 1;
+}
+
+// MsgUpdateParams는 파라미터 업데이트 메시지를 정의합니다.
+message MsgUpdateParams {
+  string authority = 1;
+  Params params = 2 [(gogoproto.nullable) = false];
+}
+
+// MsgUpdateParamsResponse는 파라미터 업데이트 응답을 정의합니다.
+message MsgUpdateParamsResponse {} 

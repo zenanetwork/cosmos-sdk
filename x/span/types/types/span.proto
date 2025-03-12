@@ -1,0 +1,30 @@
+syntax = "proto3";
+package cosmos.span.v1;
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/cosmos/cosmos-sdk/x/span/types";
+
+// Validator는 검증자 정보를 나타냅니다.
+message Validator {
+  string address = 1;
+  int64 voting_power = 2;
+  int64 proposer_priority = 3;
+}
+
+// Span은 블록 범위와 관련 정보를 나타냅니다.
+message Span {
+  uint64 id = 1;
+  uint64 start_block = 2;
+  uint64 end_block = 3;
+  repeated Validator validator_set = 4 [(gogoproto.nullable) = false];
+  repeated string selected_producers = 5;
+  string chain_id = 6;
+  google.protobuf.Timestamp created_at = 7 [(gogoproto.stdtime) = true];
+}
+
+// Params는 span 모듈의 파라미터를 정의합니다.
+message Params {
+  uint64 span_length = 1;
+} 

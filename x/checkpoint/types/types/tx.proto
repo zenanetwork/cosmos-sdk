@@ -1,0 +1,38 @@
+syntax = "proto3";
+package cosmos.checkpoint.v1;
+
+import "gogoproto/gogo.proto";
+import "cosmos/checkpoint/v1/checkpoint.proto";
+
+option go_package = "github.com/cosmos/cosmos-sdk/x/checkpoint/types";
+
+// Msg는 checkpoint 모듈의 메시지 서비스를 정의합니다.
+service Msg {
+  // CreateCheckpoint는 새로운 체크포인트를 생성합니다.
+  rpc CreateCheckpoint(MsgCreateCheckpoint) returns (MsgCreateCheckpointResponse);
+
+  // UpdateParams는 모듈 파라미터를 업데이트합니다.
+  rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
+}
+
+// MsgCreateCheckpoint는 새로운 체크포인트 생성 메시지를 정의합니다.
+message MsgCreateCheckpoint {
+  string creator = 1;
+  uint64 start_block = 2;
+  uint64 end_block = 3;
+  bytes root_hash = 4;
+}
+
+// MsgCreateCheckpointResponse는 체크포인트 생성 응답을 정의합니다.
+message MsgCreateCheckpointResponse {
+  int64 number = 1;
+}
+
+// MsgUpdateParams는 파라미터 업데이트 메시지를 정의합니다.
+message MsgUpdateParams {
+  string authority = 1;
+  Params params = 2 [(gogoproto.nullable) = false];
+}
+
+// MsgUpdateParamsResponse는 파라미터 업데이트 응답을 정의합니다.
+message MsgUpdateParamsResponse {} 

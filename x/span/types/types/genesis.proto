@@ -1,0 +1,14 @@
+syntax = "proto3";
+package cosmos.span.v1;
+
+import "gogoproto/gogo.proto";
+import "cosmos/span/v1/span.proto";
+
+option go_package = "github.com/cosmos/cosmos-sdk/x/span/types";
+
+// GenesisState는 span 모듈의 제네시스 상태를 정의합니다.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+  repeated Span spans = 2 [(gogoproto.nullable) = false];
+  uint64 last_span_id = 3;
+} 

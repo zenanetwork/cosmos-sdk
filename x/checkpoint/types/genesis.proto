@@ -1,0 +1,14 @@
+syntax = "proto3";
+package cosmos.checkpoint.v1;
+
+import "gogoproto/gogo.proto";
+import "cosmos/checkpoint/v1/checkpoint.proto";
+
+option go_package = "github.com/cosmos/cosmos-sdk/x/checkpoint/types";
+
+// GenesisState는 checkpoint 모듈의 제네시스 상태를 정의합니다.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+  repeated Checkpoint checkpoints = 2 [(gogoproto.nullable) = false];
+  int64 last_checkpoint_number = 3;
+} 
