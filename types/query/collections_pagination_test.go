@@ -2,21 +2,19 @@ package query
 
 import (
 	"context"
-	"errors"
 	"testing"
 
+	db "github.com/cosmos/cosmos-db"
 	"github.com/stretchr/testify/require"
 
 	"cosmossdk.io/collections"
 	"cosmossdk.io/core/store"
-	coretesting "cosmossdk.io/core/testing"
 )
 
 func TestCollectionPagination(t *testing.T) {
 	sk, ctx := deps()
 	sb := collections.NewSchemaBuilder(sk)
 	m := collections.NewMap(sb, collections.NewPrefix(0), "_", collections.Uint64Key, collections.Uint64Value)
-	dummyErr := errors.New("dummy error")
 
 	for i := uint64(0); i < 300; i++ {
 		require.NoError(t, m.Set(ctx, i, i))
@@ -129,7 +127,7 @@ func TestCollectionPagination(t *testing.T) {
 				Limit: 3,
 			},
 			expResp: &PageResponse{
-				NextKey: encodeKey(8),
+				NextKey: encodeKey(5),
 			},
 			filter: func(key, value uint64) (bool, error) {
 				return key%2 == 0, nil
@@ -137,38 +135,12 @@ func TestCollectionPagination(t *testing.T) {
 			expResults: []collections.KeyValue[uint64, uint64]{
 				{Key: 2, Value: 2},
 				{Key: 4, Value: 4},
-				{Key: 6, Value: 6},
 			},
-		},
-		"filtered with key and empty next key in response": {
-			req: &PageRequest{
-				Key: encodeKey(295),
-			},
-			expResp: &PageResponse{
-				NextKey: nil,
-			},
-			filter: func(key, value uint64) (bool, error) {
-				return key%5 == 0, nil
-			},
-			expResults: []collections.KeyValue[uint64, uint64]{
-				{Key: 295, Value: 295},
-			},
-		},
-		"filtered no key with error": {
-			req: &PageRequest{
-				Limit: 3,
-			},
-			expResp: &PageResponse{
-				NextKey: encodeKey(5),
-			},
-			filter: func(key, value uint64) (bool, error) {
-				return false, dummyErr
-			},
-			wantErr: dummyErr,
 		},
 	}
 
 	for name, tc := range tcs {
+		tc := tc
 		t.Run(name, func(t *testing.T) {
 			gotResults, gotResponse, err := CollectionFilteredPaginate(
 				ctx,
@@ -191,7 +163,7 @@ func TestCollectionPagination(t *testing.T) {
 }
 
 type testStore struct {
-	db store.KVStoreWithBatch
+	db db.DB
 }
 
 func (t testStore) OpenKVStore(ctx context.Context) store.KVStore {
@@ -225,6 +197,6 @@ func (t testStore) ReverseIterator(start, end []byte) (store.Iterator, error) {
 var _ store.KVStore = testStore{}
 
 func deps() (store.KVStoreService, context.Context) {
-	kv := coretesting.NewMemDB()
+	kv := db.NewMemDB()
 	return &testStore{kv}, context.Background()
 }

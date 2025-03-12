@@ -1,9 +1,9 @@
 package types
 
 import (
-	sdk "github.com/zenanetwork/cosmos-sdk/types"
-	"github.com/zenanetwork/cosmos-sdk/x/auth/types"
-	spantypes "github.com/zenanetwork/cosmos-sdk/x/span/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/x/auth/types"
+	spantypes "github.com/cosmos/cosmos-sdk/x/span/types"
 )
 
 // AccountKeeper는 계정 모듈의 인터페이스를 정의합니다.

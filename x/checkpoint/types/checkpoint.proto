@@ -8,14 +8,16 @@ option go_package = "github.com/cosmos/cosmos-sdk/x/checkpoint/types";
 
 // Checkpoint는 체크포인트 정보를 나타냅니다.
 message Checkpoint {
-  uint64 start_block = 1;
-  uint64 end_block = 2;
-  bytes root_hash = 3;
-  string proposer = 4;
-  google.protobuf.Timestamp timestamp = 5 [(gogoproto.stdtime) = true];
+  int64 number = 1;
+  uint64 start_block = 2;
+  uint64 end_block = 3;
+  bytes root_hash = 4;
+  string proposer = 5;
+  google.protobuf.Timestamp timestamp = 6 [(gogoproto.stdtime) = true];
 }
 
 // Params는 checkpoint 모듈의 파라미터를 정의합니다.
 message Params {
-  uint64 checkpoint_interval = 1;
+  uint64 checkpoint_buffer_size = 1;
+  string chain_id = 2;
 } 

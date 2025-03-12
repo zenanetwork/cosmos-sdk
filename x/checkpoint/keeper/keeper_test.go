@@ -6,10 +6,10 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	storetypes "cosmossdk.io/store/types"
-	"github.com/zenanetwork/cosmos-sdk/codec"
-	sdk "github.com/zenanetwork/cosmos-sdk/types"
-	"github.com/zenanetwork/cosmos-sdk/x/checkpoint/keeper"
-	"github.com/zenanetwork/cosmos-sdk/x/checkpoint/types"
+	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/x/checkpoint/keeper"
+	"github.com/cosmos/cosmos-sdk/x/checkpoint/types"
 )
 
 // KeeperTestSuite는 checkpoint 모듈의 keeper를 테스트하기 위한 테스트 스위트입니다.

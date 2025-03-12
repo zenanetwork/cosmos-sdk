@@ -39,9 +39,13 @@ func UpgradeBinary(logger log.Logger, cfg *Config, p upgradetypes.Plan) error {
 		return fmt.Errorf("unhandled error: %w", err)
 	}
 
-	upgradeInfo, err := plan.ParseInfo(p.Info, plan.ParseOptionEnforceChecksum(cfg.DownloadMustHaveChecksum))
+	upgradeInfo, err := plan.ParseInfo(p.Info)
 	if err != nil {
 		return fmt.Errorf("cannot parse upgrade info: %w", err)
+	}
+
+	if err := upgradeInfo.ValidateFull(cfg.Name); err != nil {
+		return fmt.Errorf("invalid binaries: %w", err)
 	}
 
 	url, err := GetBinaryURL(upgradeInfo.Binaries)

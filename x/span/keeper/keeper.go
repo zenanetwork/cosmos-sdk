@@ -5,9 +5,9 @@ import (
 	"fmt"
 
 	storetypes "cosmossdk.io/store/types"
-	"github.com/zenanetwork/cosmos-sdk/codec"
-	sdk "github.com/zenanetwork/cosmos-sdk/types"
-	"github.com/zenanetwork/cosmos-sdk/x/span/types"
+	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/x/span/types"
 )
 
 // Keeper는 span 모듈의 상태를 관리합니다.

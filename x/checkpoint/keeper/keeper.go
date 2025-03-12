@@ -5,9 +5,9 @@ import (
 	"fmt"
 
 	storetypes "cosmossdk.io/store/types"
-	"github.com/zenanetwork/cosmos-sdk/codec"
-	sdk "github.com/zenanetwork/cosmos-sdk/types"
-	"github.com/zenanetwork/cosmos-sdk/x/checkpoint/types"
+	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/x/checkpoint/types"
 )
 
 // Keeper는 checkpoint 모듈의 상태를 관리합니다.

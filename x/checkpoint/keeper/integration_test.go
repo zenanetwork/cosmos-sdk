@@ -7,12 +7,12 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	storetypes "cosmossdk.io/store/types"
-	"github.com/zenanetwork/cosmos-sdk/codec"
-	sdk "github.com/zenanetwork/cosmos-sdk/types"
-	checkpointkeeper "github.com/zenanetwork/cosmos-sdk/x/checkpoint/keeper"
-	checkpointtypes "github.com/zenanetwork/cosmos-sdk/x/checkpoint/types"
-	spankeeper "github.com/zenanetwork/cosmos-sdk/x/span/keeper"
-	spantypes "github.com/zenanetwork/cosmos-sdk/x/span/types"
+	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	checkpointkeeper "github.com/cosmos/cosmos-sdk/x/checkpoint/keeper"
+	checkpointtypes "github.com/cosmos/cosmos-sdk/x/checkpoint/types"
+	spankeeper "github.com/cosmos/cosmos-sdk/x/span/keeper"
+	spantypes "github.com/cosmos/cosmos-sdk/x/span/types"
 )
 
 // IntegrationTestSuite는 checkpoint와 span 모듈 간의 통합 테스트를 위한 테스트 스위트입니다.

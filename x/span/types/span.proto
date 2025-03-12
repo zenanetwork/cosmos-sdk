@@ -27,4 +27,5 @@ message Span {
 // Params는 span 모듈의 파라미터를 정의합니다.
 message Params {
   uint64 span_length = 1;
+  string chain_id = 2;
 } 

@@ -28,7 +28,4 @@ var (
 
 	// AccountNumberStoreKeyPrefix prefix for account-by-id store
 	AccountNumberStoreKeyPrefix = collections.NewPrefix("accountNumber")
-
-	// legacy param key for global account number
-	LegacyGlobalAccountNumberKey = []byte("globalAccountNumber")
 )

@@ -7,10 +7,10 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	storetypes "cosmossdk.io/store/types"
-	"github.com/zenanetwork/cosmos-sdk/codec"
-	sdk "github.com/zenanetwork/cosmos-sdk/types"
-	"github.com/zenanetwork/cosmos-sdk/x/span/keeper"
-	"github.com/zenanetwork/cosmos-sdk/x/span/types"
+	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/x/span/keeper"
+	"github.com/cosmos/cosmos-sdk/x/span/types"
 )
 
 // KeeperTestSuite는 span 모듈의 keeper를 테스트하기 위한 테스트 스위트입니다.

@@ -3,12 +3,12 @@ package types
 import (
 	"context"
 
-	"cosmossdk.io/core/registry"
-	coretransaction "cosmossdk.io/core/transaction"
 	"google.golang.org/grpc"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/codec/legacy"
+	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/msgservice"
 )
 
@@ -21,25 +21,25 @@ type MsgServer interface {
 }
 
 // RegisterLegacyAminoCodec은 모듈의 인터페이스를 레거시 아미노 코덱에 등록합니다.
-func RegisterLegacyAminoCodec(registrar registry.AminoRegistrar) {
-	legacy.RegisterAminoMsg(registrar, &MsgCreateSpan{}, "span/CreateSpan")
-	legacy.RegisterAminoMsg(registrar, &MsgUpdateParams{}, "span/UpdateParams")
+func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
+	legacy.RegisterAminoMsg(cdc, &MsgCreateSpan{}, "span/CreateSpan")
+	legacy.RegisterAminoMsg(cdc, &MsgUpdateParams{}, "span/UpdateParams")
 }
 
 // RegisterInterfaces는 모듈의 인터페이스를 인터페이스 레지스트리에 등록합니다.
-func RegisterInterfaces(registrar registry.InterfaceRegistrar) {
-	registrar.RegisterImplementations(
-		(*coretransaction.Msg)(nil),
+func RegisterInterfaces(registry codectypes.InterfaceRegistry) {
+	registry.RegisterImplementations(
+		(*sdk.Msg)(nil),
 		&MsgCreateSpan{},
 		&MsgUpdateParams{},
 	)
 
-	msgservice.RegisterMsgServiceDesc(registrar, &_Msg_serviceDesc)
+	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)
 }
 
 // _Msg_serviceDesc는 Msg 서비스 디스크립터를 정의합니다.
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "zenachain.span.v1.Msg",
+	ServiceName: "cosmos.span.v1.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -52,7 +52,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "zenachain/span/v1/tx.proto",
+	Metadata: "cosmos/span/v1/tx.proto",
 }
 
 var (
